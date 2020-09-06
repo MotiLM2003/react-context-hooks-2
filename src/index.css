@@ -39,6 +39,7 @@ body {
   border-radius: 4px;
   padding: 10px;
   margin: 10px 0;
+  position: relative;
 }
 
 .book-list li .title:hover {
@@ -92,4 +93,12 @@ input[type='submit'] {
   padding: 6px 20px;
   display: block;
   outline: none;
+}
+
+.update {
+  position: absolute;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
 }
