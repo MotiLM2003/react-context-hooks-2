@@ -2,22 +2,19 @@ import React, { useContext, useState } from 'react';
 import { BookContext } from '../contexts/BookContext';
 
 const BookForm = () => {
-  const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
-  const [bookId, setBookId] = useState(0);
-  const { books, dispatch } = useContext(BookContext);
-
-  const initUpdate = (id) => {};
-
+  const { dispatch, selectedBook, setSelectedBook } = useContext(BookContext);
   const onFormSubmit = (e) => {
     e.preventDefault();
     dispatch({
-      type: 'ADD_BOOK',
-      book: {
-        title,
-        author,
-      },
+      type: selectedBook.id == 0 ? 'ADD_BOOK' : 'UPDATE_BOOK',
+      book: selectedBook,
     });
+
+    setSelectedBook({ id: 0, title: '', author: '' });
+  };
+
+  const onBookChange = (e) => {
+    setSelectedBook({ ...selectedBook, [e.target.name]: e.target.value });
   };
 
   return (
@@ -25,20 +22,25 @@ const BookForm = () => {
       <label htmlFor=''>Title</label>
       <input
         type='text'
-        value={title}
+        name='title'
+        value={selectedBook.title}
         placeholder='Add title'
-        onChange={(e) => setTitle(e.target.value)}
+        onChange={onBookChange}
         required
       />
       <label htmlFor=''>Author</label>
       <input
         type='text'
+        name='author'
         placeholder='add author'
-        title={author}
-        onChange={(e) => setAuthor(e.target.value)}
+        value={selectedBook.author}
+        onChange={onBookChange}
         required
       />
-      <input type='submit' value='Add new book' />
+      <input
+        type='submit'
+        value={selectedBook.id === 0 ? 'Add book' : 'Update book'}
+      />
     </form>
   );
 };

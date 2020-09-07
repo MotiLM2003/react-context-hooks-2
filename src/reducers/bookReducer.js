@@ -6,16 +6,19 @@ export const bookReducer = (state, action) => {
         ...state,
         { title: action.book.title, author: action.book.author, id: uuidv4() },
       ];
-      break;
     }
 
     case 'REMOVE_BOOK': {
       return state.filter((book) => book.id !== action.id);
-      break;
     }
 
-    case 'UPDATE_book': {
-      return state;
+    case 'UPDATE_BOOK': {
+      const updateBooks = [...state];
+      const index = updateBooks.findIndex((book) => book.id === action.book.id);
+      updateBooks.splice(index, 1, action.book);
+
+      console.log(action.book);
+      return updateBooks;
     }
 
     default: {

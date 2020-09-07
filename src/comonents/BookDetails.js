@@ -2,7 +2,10 @@ import React, { useContext } from 'react';
 import { BookContext } from '../contexts/BookContext';
 
 const BookDetails = ({ book: { id, title, author } }) => {
-  const { dispatch } = useContext(BookContext);
+  const { dispatch, selectedBook, setSelectedBook } = useContext(BookContext);
+  const initSelectedBook = () => {
+    setSelectedBook({ id, title, author });
+  };
   return (
     <li>
       <div
@@ -13,7 +16,9 @@ const BookDetails = ({ book: { id, title, author } }) => {
       </div>
 
       <div className='author'>{author}</div>
-      <div className='update'>update</div>
+      <div className='update' onClick={initSelectedBook}>
+        update
+      </div>
     </li>
   );
 };
